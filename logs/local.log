@@ -1,0 +1,46 @@
+2024-10-19T20:59:57.705+0530	info	task_manager/task_manager.go:33	Received message: {"action":"CommandExecuted","id":"7876f9e4-dfaf-4a56-b51d-9e9dcc2443ce","msg":"Command 7876f9e4-dfaf-4a56-b51d-9e9dcc2443ce executed","status":"executed"}
+2024-10-19T20:59:57.714+0530	info	task_manager/task_manager.go:45	Message processed successfully
+2024-10-19T21:01:36.197+0530	info	task_manager/task_manager.go:33	Received message: {"action":"CommandExecuted","id":"81c20227-8123-46e3-819b-a92da16539ed","msg":"Command 81c20227-8123-46e3-819b-a92da16539ed executed","status":"executed"}
+2024-10-19T21:01:36.203+0530	info	task_manager/task_manager.go:45	Message processed successfully
+2024-10-23T00:30:56.499+0530	error	controller/command.go:52	invalid character '1' after object key:value pair
+server/controller.(*commandApiController).CommandsPost
+	C:/Users/patil/OneDrive/Desktop/Trio/server/controller/command.go:52
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	C:/Users/patil/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.8.windows-amd64/src/net/http/server.go:3142
+net/http.(*conn).serve
+	C:/Users/patil/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.8.windows-amd64/src/net/http/server.go:2044
+2024-10-23T00:31:44.160+0530	error	controller/command.go:52	invalid character '1' after object key:value pair
+server/controller.(*commandApiController).CommandsPost
+	C:/Users/patil/OneDrive/Desktop/Trio/server/controller/command.go:52
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	C:/Users/patil/go/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576
+net/http.serverHandler.ServeHTTP
+	C:/Users/patil/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.8.windows-amd64/src/net/http/server.go:3142
+net/http.(*conn).serve
+	C:/Users/patil/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.8.windows-amd64/src/net/http/server.go:2044

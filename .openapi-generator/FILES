@@ -1,0 +1,11 @@
+Dockerfile
+api/openapi.yaml
+generated/README.md
+generated/api_migration_api.go
+generated/api_search_api.go
+generated/model__migration_start_post_202_response.go
+generated/model_page_request.go
+generated/model_page_response.go
+generated/routers.go
+go.mod
+main.go

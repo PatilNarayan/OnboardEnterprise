@@ -1,0 +1,215 @@
+openapi: 3.0.3
+info:
+  description: |
+    APIs to trigger document metadata migration and perform search with automatic org/team creation.
+  title: Document Migration & Search API
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- description: Endpoints to initiate and track migration of documents or files.
+  name: Migration API
+- description: Endpoints to perform ACL-based search across organization/team/user
+    contexts.
+  name: Search API
+paths:
+  /migration/start:
+    post:
+      description: |
+        Initiates the migration process by uploading a CSV file containing all file URLs and metadata. The system will search for the provided organization and team names, creating them if they do not exist.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/_migration_start_post_request'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_migration_start_post_202_response'
+          description: Migration process started successfully.
+        "400":
+          description: Invalid request payload.
+        "500":
+          description: Internal server error during migration initialization.
+      summary: Trigger Migration Process via CSV
+      tags:
+      - Migration API
+  /pages/search:
+    get:
+      description: |
+        Searches indexed pages or documents based on the query string. Access control is enforced using org_id, team_id, and user_id.
+      parameters:
+      - description: Organization ID of the requester.
+        explode: true
+        in: query
+        name: org_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: Team ID to limit search scope.
+        explode: true
+        in: query
+        name: team_id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: User ID performing the search.
+        explode: true
+        in: query
+        name: user_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: "Keyword or phrase to search within document title, summary,\
+          \ or content."
+        explode: true
+        in: query
+        name: query
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PageResponse'
+                type: array
+          description: List of documents matching the search query and access control
+            filters.
+        "400":
+          description: Invalid or missing query parameters.
+        "403":
+          description: Unauthorized access based on org/team/user scope.
+        "500":
+          description: Internal search error.
+      summary: Search Pages by Query
+      tags:
+      - Search API
+components:
+  schemas:
+    PageRequest:
+      properties:
+        id:
+          description: Unique ID for the Page.
+          type: string
+        url:
+          description: URL of the Page.
+          format: uri
+          type: string
+        title:
+          description: Title of the Page.
+          type: string
+        summary:
+          description: Short description of the Page.
+          type: string
+        content:
+          description: Full text content of the Page.
+          type: string
+        categories:
+          description: Comma-separated list of categories.
+          type: string
+        infobox:
+          description: Infobox data in structured format.
+          type: string
+        images:
+          description: Comma-separated list of image URLs.
+          type: string
+        references:
+          description: List of references on the Page.
+          type: string
+        external_links:
+          description: Comma-separated list of external links.
+          type: string
+        language:
+          description: "Language code (e.g., en, fr)."
+          type: string
+        page_id:
+          description: Original Page ID.
+          type: string
+        last_modified:
+          description: Last modified time of the Page.
+          format: date-time
+          type: string
+        word_count:
+          description: Word count of the Page.
+          type: integer
+      required:
+      - title
+      - url
+      type: object
+    PageResponse:
+      allOf:
+      - $ref: '#/components/schemas/PageRequest'
+      - properties:
+          created_at:
+            description: When the record was created.
+            format: date-time
+            type: string
+          updated_at:
+            description: When the record was last updated.
+            format: date-time
+            type: string
+        type: object
+      example:
+        summary: summary
+        images: images
+        references: references
+        infobox: infobox
+        created_at: 2000-01-23T04:56:07.000+00:00
+        language: language
+        title: title
+        url: https://openapi-generator.tech
+        content: content
+        page_id: page_id
+        word_count: 0
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        external_links: external_links
+        id: id
+        categories: categories
+        last_modified: 2000-01-23T04:56:07.000+00:00
+    _migration_start_post_request:
+      properties:
+        org_name:
+          description: Name of the organization
+          type: string
+        team_name:
+          description: Name of the team (optional)
+          type: string
+        file:
+          description: CSV file containing files and metadata for migration
+          format: binary
+          type: string
+      type: object
+    _migration_start_post_202_response:
+      example:
+        migration_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        message: Migration started successfully. CSV parsing in progress.
+        status: initiated
+      properties:
+        migration_id:
+          description: Unique ID for the migration job
+          format: uuid
+          type: string
+        status:
+          enum:
+          - initiated
+          - running
+          - completed
+          - failed
+          type: string
+        message:
+          example: Migration started successfully. CSV parsing in progress.
+          type: string
+      type: object
